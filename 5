@@ -1,0 +1,102 @@
+## change Host Name
+# hostname view hostname
+# hostname RH100 change hostname runtime
+# vim /etc/hostname permanent configuration file for hostname
+# hostnamectl set-hostname RH100 set computer name to RH100 permanent and run time
+# vim /etc/hosts resolve hostnames to IP address
+10.0.0.100 RH100
+10.0.0.200 RH200
+---------------------------------------------------
+Configure and secure SSH
+secure shell Port:22 secure remote connections traffic encrypted
+#ssh 10.0.0.200
+# ssh ahmed@10.0.0.200 remote login by server IP
+# ssh root@RH200 remote login by server Name
+##ssh key based authentication (without password)
+#ssh-keygen
+#ssh-copy-id root@10.0.0.200
+---------------------------------------------------------------
+sftp port:22 secure file transfer files
+##RH100
+#touch script1
+#touch script2
+#touch script3
+##RH200
+#touch report1
+#touch report2
+#touch report3
+[root@RH100 ~]#sftp 10.0.0.200
+[root@RH100 ~]#sftp RH200
+sftp>pwd pwd for remote server
+sftp>lpwd pwd for local server
+##local server >>>>>>>remote server
+##upload files
+sftp>put script1 send Upload file
+##remote server >>>>>>local server
+##download files
+sftp>get report1 get file download
+######################################################################################
+Analyze and store logs
+Log Server
+/var/log defualt location to store log files
+# tail -f /var/log/messages
+1- Configure Log Server RH200
+## allow firewall traffic for rsyslogs
+# firewall-cmd --list-ports
+# firewall-cmd --add-port=514/tcp --permanent
+# firewall-cmd --add-port=514/udp --permanent
+# firewall-cmd --reload
+# firewall-cmd --list-ports
+## configure log server to store logs
+# vim /etc/rsyslog.conf
+in MODULE Section uncomment from lines :
+module(load="imudp") # needs to be done just once
+input(type="imudp" port="514")
+module(load="imtcp") # needs to be done just once
+input(type="imtcp" port="514")
+## restart rsyslog.service
+# systemctl restart rsyslog.service
+-------------------------------
+2- On RH100 (Client)
+# vim /etc/rsyslog.conf
+in RULES Section Modify this line to be :
+*.info;mail.none;authpriv.none;cron.none @10.0.0.200 or @RH200
+# systemctl restart rsyslog.service
+###################################################################
+Archive , Compress and transfer files
+Archive >>> Backup
+Compress >> Save space
+Archive tar command Create Archive for one or more files
+Compress gzip bzip2 replace files with Compressed one
+Archive+Compress zip command
+--------------------------------------
+Create - List - extract
+tar command c Create x Extract t List v Verbose f FileName
+# tar cvf Backup1.tar file* create
+# tar tf Backup1.tar list
+# tar xvf Backup1.tar extract
+-------------------
+gzip
+# gzip -v file1 compress
+# zcat file1.gz read
+# zmore file1.gz read
+# less file1.gz read
+# gunzip -v file1.gz extract
+bzip2
+# bzip2 -v file3 compress
+# bzcat file3.bz2 read
+# bzmore file3.bz2 read
+# less file3.bz2 read
+# bunzip2 -v file3.bz2 extract
+---------------------
+Archive+Compress zip command
+zip -v create
+unzip -l list
+unzip extract
+# zip -v Backup2.zip file*
+# unzip -l Backup2.zip
+# unzip Backup2.zip
+------------------------------------------------------------------
+transfare files scp 22 ssh
+# scp script1 root@10.0.0.100:/root send Upload file to 10.0.0.100
+# scp root@10.0.0.100:/root/report1 /root get file download from 10.0.0.100
