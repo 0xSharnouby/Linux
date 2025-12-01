@@ -1,0 +1,69 @@
+Monitor and manage Linux processes
+## List Processes
+# ps list running process in my terminal
+# ps -f list running process in my terminal with full information
+# pstree 3924 list process tree 3924 is ProcessID
+# ps -e list all processes running in my system
+# pgrep bash filter and search for process IDs
+# top list current process utilization in my system
+---------------------------------------------------------------------------------------------
+## kill process
+# kill 3924 kill PID
+# pkill firefox pkill ProcessName
+# kill -l list all kill signals
+# kill -9 3924 force kill PID
+# pkill -9 firefox force kill Process with name firefox
+-----------------------------------------------------------------------------------------
+managin jobs
+jobs list jobs
+## forground and background process
+Forgound Job >>> Ctrl+z >>> stopped Job >>>> bg %JobID background job
+>>>> fg %JobID forground job
+ctrl z >>>kill -19 19) SIGSTOP
+---------------------------------------------------------------------------------------------
+## change process priority nice status (NI)
++19 <<<<<<<<<<< 0 >>>>>>>>>>>>> -20
+Low priority normal high priority
+command nice , renice
+# nice -n -17 firefox & start firefox process with nice status -17
+# renice -n -14 -p 7008 change nice status from old to -14 for process with ID 7008
+-------------------------------------------------------------------------------------------------------------
+Control services and daemons
+Service : application running in background waiting for user - called daemons
+How to mange system service ?
+systemctl service manager
+# systemct status sshd
+# systemct stop sshd stop service run time
+# systemct disable sshd disable permanent configuration (must reboot to take effect)
+# systemct start sshd start service run time
+# systemct enable sshd enable permanent configuration (must reboot to take effect)
+# systemctl list-units list current status of all services active
+# systemctl list-units --all list permanent status of all service enabled or not (active orinactive)
+# systemctl restart sshd stop then start service
+# systemctl reload sshd update service configuration without interruption
+-------------------------------------------------------------------------------
+1-Manage networking configuration
+Configure network interfaces and settings
+# ifconfig list all network interfaces
+# ifconfig ens160 list network interface ens160
+# ifconfig ens160 10.0.0.100 netmask 255.0.0.0 set network configuration run time
+#vim /etc/sysconfig/network-scripts/ifcfg-ens160 store all permanent confiduration for NIC (ens160)
+# nmcli list network connections
+# nmtui network manager text user interface
+# ping 10.0.0.100 #ping 10.0.0.200
+# systemctl status NetworkManager.service
+# vim /etc/sysconfig/network-scripts/ifcfg-ens160
+# nmcli connection show
+#nmcli device status
+#nmcli connection add con-name profile1 ifname ens160 type ethernet ipv4.addresses 10.0.0.101/8
+# nmcli connection modify profile1 ipv4.addresses 10.0.0.102/8
+# nmcli connection modify profile1 ipv4.gateway 10.0.0.10
+# nmcli connection modify modify ipv4.dns 10.0.0.11
+# nmcli connection up profile1
+# nmcli connection down profile1
+------------------------------------------------------
+## change Host Name
+# hostname view hostname
+# hostname RH100 change hostname runtime
+# vim /etc/hostname permanent configuration file for hostname
+# hostnamectl set-hostname Server100 set computer name to server100 permanent and run time
