@@ -1,0 +1,81 @@
+Install and update software packages
+software packages >> Software installation Source
+nmap-7.92-1.x86_64.rpm
+PackageName-Version.Arch.rpm rpm >>>> (redhat package managment)
+how to get Packages ?
+1- from any internet website Ex:nmap-7.92-1.x86_64.rpm
+2- from online repository >>>>Centos Fedora Oracle linux
+3- local repository
+4- Redhat OS installation Source
+-------------------------------------------------------------------------
+To install Package Application Manager (2 installer) rpm yum
+## rpm command
+# rpm -ivh /run/media/root/RHEL-8-1-0-BaseOS-x86_64/AppStream/Packages/ksh-20120801-252.el8.x86_64.rpm
+##rpm i (install) v (verbose) h (hash) ####
+# rpm -q ksh query
+# rpm -e ksh remove
+rpm can not resolve dependencies
+yum can resolve dependencies
+yum need repository Configuration to be used
+yum install PackageName
+### Configure Local Repository on my system
+1- Create Directory >>>>> /var/dirName
+2- Copy Packages to my directory
+3- Configure your system to use my local repo >>>>>> Configuration file /etc/yum.repos.d/anyname.repo
+# mkdir /var/myrepo
+# cp -r /run/media/root/RHEL-8-1-0-BaseOS-x86_64/AppStream /var/myrepo/
+# cp -r /run/media/root/RHEL-8-1-0-BaseOS-x86_64/BaseOS /var/myrepo/
+# vim /etc/yum.repos.d/myrepo.repo
+[AppStream]
+name=AppStream
+baseurl=file:/var/myrepo/AppStream
+enabled=1
+gpgcheck=0
+[BaseOS]
+name=BaseOS
+baseurl=file:/var/myrepo/BaseOS
+enabled=1
+gpgcheck=0
+:wq
+-----------------------------------------------------------
+# yum install ksh install ksh
+# yum info ksh view package info
+# yum search ksh search for package
+# yum update ksh update package
+# yum install virt-manager install package and resolve dependencies
+# yum info virt-manager view package info
+---------------------------------------------------------------------------------
+grep command filter in file content and command output
+grep word file
+command | grep word
+grep options word file
+# grep root /etc/passwd
+# ifconfig |grep ether
+# grep -i ROOT /etc/passwd ignore letter case
+# grep -w ahmed /etc/passwd search for word
+# grep -n root /etc/passwd view line numbers
+# grep -c root /etc/passwd line counter
+# grep ^root /etc/passwd lines start with
+# grep bash$ /etc/passwd lines end with
+-------------------------------------------------------------------------------------------------------
+locating files on the system
+searching for files (locate , find)
+#locate network
+#updatedb
+searching for files in real time
+###search for files by file name
+#find / -name network
+#find / -iname network
+####searching files based on ownership or permission
+#find /etc/ -user root
+#find /etc/ -group root
+#find /etc/ -perm 755
+#find -uid 1010
+#find -gid 1000
+####searching files based on size
+#find -size 10M search the files with a size of 10 megabytes
+#find -size +10M search the files with a size more than 10 megabytes
+find -size -10M search the files with a size less than 10 megabytes
+---------------------------------------
+####locate files and copy
+#find /etc/ -name network -exec cp -r {} work/ \;
