@@ -1,0 +1,72 @@
+1- Directory Hirarchy /
+2-command line syntax
+command Option Argument
+ls -a fileName
+command -a -l -h
+command -alh
+command1 ; command2 ; command3
+command Argument1 Argument2 Argument3
+-------------------------------------
+3-Shell
+bourn shell sh
+Korn shell ksh
+C shell csh
+bourn again shell bash
+echo $SHELL view shell type
+-------------------------------------
+4-manging files and directories
+-Navigation
+cd Change the current directory to dir
+pwd print (show) working directory (current location)
+cd /path
+cd /etc/ change to /etc directory
+cd /home/mohamed/ change to directory /home/mohamed
+cd .. one level up
+cd ../.. two levels up
+cd - go to last location (back)
+cd ~ go to home directory (home directory=user profile) ~ telda
+---------------------------------------
+-list files and directories
+ls list
+ls -a list all files
+ls -l long list -h human read
+ls -l
+filetype
+- file
+d directory
+l link shortcut
+permissions r read w write x execute r-x "allow read deny write allow execute" - deny
+owner user (creator) owner Group(primary group) Others
+rwxr-xr-x rwx r-x r-x
+--------------------------------------------------------------------------------
+-Create files and directories
+touch fileName create files and change files timestamps
+mkdir directoryName make directories
+mkdir -p full directory hirarchy
+----------------------------------------
+-remove files and directories (rm)
+rm file1 remove file1
+rm sunday_log* remove all files start with sunday_log
+rm -f sunday_log* force remove all files start with sunday_log
+rm -rf data1 force remove files Or directories
+-------------------------------------------------------------------------------------
+-copy files and directories (cp)
+cp Source Destination
+cp fileName copy files
+cp -r copy files Or directories
+cp -r work1/ /home/work100 copy and rename files Or directories
+-------------------------------------------------------------------------------------
+-move (rename) files mv for move Or rename
+mv source destination <<<<<same rename
+mv source destination <<<<<different move (cut)
+-------------------------------------------------------------------------------------
+task
+1-create 3 directories /sales /hr /it
+2-create files in /sales:
+sales_report1 sales_report2 sales_report3
+3-create 3 files in /hr
+hr_report1 hr_report2 hr_report3
+4-in /it:
+-create directory backup_all
+-copy all files from all Departments to backup_all Directory
+5- remove all files in /hr and /sales Note: do not remove sales and hr directories
