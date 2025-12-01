@@ -1,0 +1,80 @@
+Control access to files
+- rw-r--r-- root root work1 >>>>file
+d rwxr-xr-x root root data >>>>dir
+r read permission
+w write permission
+x execute permission
+- deny
+rwx allow read allow write allow execute r-x allow read deny write allow execute r-- allow read only
+rw- r-- r--
+owner Primary Others
+user Group
+rwx rw- r-- sales1 sales
+sales2 sales permissions rw-
+hr1 hr permissions r--
+it1 it,sales,hr permissions rw-
+-----------------------------------------------------------------
+change Permissions chmod
+## symbolic mode
+chmod u+x fileName rw- +x rwx -x rw- =x --x
+g-r
+o=x
+a
+# chmod u+x work1
+# chmod g=rwx work1
+# chmod o-r work1
+# chmod a=rw- work1
+# chmod u=rwx,g=rw-,o=r-- work1
+# chmod a=rwx data/ change permissions for directory only
+# chmod -R a=rwx data/ change permissions for directory and all sub contents
+--------------------------------------------------------------------------
+## Octal mode
+rwx rw- r-- rwx >> binary 111 >> decimal = 7
+000 --- 0
+001 --x 1
+010 -w- 2
+011 -wx 3
+100 r-- 4
+101 r-x 5
+110 rw- 6
+111 rwx 7
+rwxrw-r-- 764
+chmod 764 filename
+chmod -R 777 directory
+# chmod 777 work1 -rwxrwxrwx
+# chmod 644 work1 -rw-r--r--
+# chmod -R 700 data/ drwx------
+-----------------------------------------------------------------------------------
+change ownership change owneruser - change ownerGroup
+chown change owner
+chgrp change Group
+# chown mohamed work1 change owner user
+# chgrp sales work1 change owner group
+# chown hany:hr work1 change owner user and owner group
+# chown :sales work1 changr owner group only
+# chown root:root work1 change owner user and owner group
+-----------------------------------------------------------------------------------
+ACL Access Control List
+rwx rw- r-- sales1 sales
+hrmanager hr we need assign rw- to hrmanager
+hrgroup rw-
+with ACL set permission selected user or selected group on files
+getfacl view ACLs
+setfacl modify ACLs
+# getfacl file1 view ACL for file1
+# setfacl -m u:natasha:rwx file1 set ACL entery for user natasha
+# setfacl -m u:harry:7 file1 set ACL entery for user harry
+# setfacl -m g:hr:rw- file1 set ACL entery for Group hr
+# setfacl -m g:sales:rwx file1 set ACL entery for Group sales
+# setfacl -R -m u:hany:rwx data/ for directories -R to inherit permissions to sub contents
+# setfacl -m m:rw- file1 set mask to rw- for ACL entries
+# setfacl -x u:natasha: file1 remove ACL for user natasha
+# setfacl -x g:sales: file1 remove ACL for group sales
+# setfacl -b file1 restore file to basic file permissions (back stage)
+# setfacl -b data/ restore directory to basic directory permissions (back stage)
+# setfacl -R -b data/ restore directory to basic directory permissions and sub contents
+# setfacl -R -m g:sales:rw-,g:hr:rw- data/ set ACL to hr and sales in one command
+####Special Permissions chmod
+1- SetGID set owner Group for directory to be owner Group for any new contents
+# chmod g+s /home/public set GID
+# chmod g-s /home/public remove GID
