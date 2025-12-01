@@ -1,0 +1,84 @@
+1-Getting Help in Red Hat Enterprise Linux
+2-Create, view, and edit text files
+Command line text editor
+Vi Editor
+-----------------------------
+-reading text file
+cat more less head tail
+# cat file1
+# more file1
+# less file1
+# head file1
+# head -3 file1
+# tail file1
+# tail -2 file1
+-Search Location File
+#find / -name fileName(work1)
+-Redirection
+date >fileName Override
+hostname >>fileName append
+3-Managing local users and groups
+User Managment List,Create,Modify,Remove User Account
+user account
+1- User login name
+2- Password
+3- User ID root 0 - users 1000 , 1001 .... UID 1-999 reserved local system Accounts
+4- Primary Group default system will create Group same as user name ali ali
+5- Home directory user profile default location /home/username user root /root
+6- Default shell default shell for users bash
+## list users
+/etc/passwd store all user's informations
+/etc/shadow store all user's passwords encrypted
+# id username
+root:x:0:0:root:/root:/bin/bash
+hany1:x:1001:1001::/home/hany1:/bin/bash
+username:x:UserID:PrimaryGroupID:Comment:HomeDirectory:DefaultShell
+## Create Users
+# useradd hany2 create user with default settings
+# useradd -s /bin/ksh -u 1010 -c "sales manager" hany10 create user with custom settings
+# passwd hany1 set user password
+# id hany1
+uid=1001(hany1) gid=1001(hany1) groups=1001(hany1)
+## modify user settings
+usermod option username
+# usermod -u 1009 hany10
+# usermod -c "hr manager" hany10
+# usermod -s /bin/bash hany10
+## Remove user
+userdel username delete user only
+userdel -r username delete user and home directory
+## switch user
+# su - hany1 switch to hany1
+$ pwd view current login user
+/home/hany
+-----------------------------------------------------------------------------
+Group Managment permission - mail
+List , create ,Modify Group Members and remove Group
+User primary Group Default , Secondary Groups
+# vi /etc/group list all groups
+## Create Group
+# groupadd sales
+# groupadd it
+# groupadd hr
+# groupadd managers
+## modify Group members
+# usermod -g sales ali set primary Group to sales
+# usermod -G it ali set secondary Group
+# usermod -aG it ali add Secondary Group
+# id ali
+uid=1002(ali) gid=1004(sales) groups=1004(sales),1005(it),1006(hr)
+# groupdel it remove group
+# groupdel sales
+groupdel: cannot remove the primary group of user 'ali' can not remove primary group for user
+-----------------------------------------------------
+## sudo super user do
+1-
+# usermod -aG wheel khaled add user to wheel Group
+# su - khaled switch to user khaled
+$ sudo fdisk /dev/nvme0n1 run any administrator command start with sudo
+2-
+#touch /etc/sudoers.d/fileName
+#vim /etc/sudoers.d/fileName
+khaled ALL=(ALL) ALL
+:wq
+-----------------------------------------------------
